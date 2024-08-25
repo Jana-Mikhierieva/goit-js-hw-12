@@ -1,0 +1,125 @@
+@import "izitoast/dist/css/iziToast.min.css";
+@import "simplelightbox/dist/simple-lightbox.min.css";
+
+.loader {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+    border-top: 4px solid #232556e6;
+    border-right: 4px solid transparent;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+.loader.is-hidden {
+    display: none;
+}
+
+.loader::after {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border-bottom: 4px solid #daff00;
+    border-left: 4px solid transparent;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.container {
+    width: 1200px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-form {
+    width: 600px;
+    display: flex;
+    margin: 0 auto;
+    margin-bottom: 40px;
+}
+
+.search-input {
+    font-size: 18px;
+    flex-grow: 1;
+    width: 360px;
+    height: 40px;
+    padding-left: 15px;
+    border: 1px solid #303030;
+    border-radius: 4px;
+}
+
+.search-btn {
+    font-size: 14px;
+    background-color: #4e75ff;
+    border-radius: 8px;
+    padding: 8px 16px;
+    width: 86px;
+    height: 40px;
+    color: #ffffff;
+    border: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.search-btn:hover {
+    background-color: #6c8cff;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.gallery-card {
+    width: calc((100% - 60px) / 4);
+    border: 1px solid #303030;
+}
+
+.gallery-img {
+    width: 100%;
+    height: 380px;
+    object-fit: cover;
+}
+
+.image-info {
+    display: flex;
+    justify-content: space-around;
+    gap: 5px;
+}
+
+.text-descr {
+    display: block;
+}
+
+.img-descr {
+    text-align: center;
+    font-weight: 700;
+    font-size: 14px;
+    color: #0b2eaf
+}
+
+.quantity-descr {
+    font-weight: normal;
+    color: #303030;
+}
