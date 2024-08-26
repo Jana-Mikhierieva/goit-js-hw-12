@@ -14,12 +14,37 @@
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
 }
+.loader-more {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+    border-top: 4px solid #232556e6;
+    border-right: 4px solid transparent;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
 
-.loader.is-hidden {
+.is-hidden {
     display: none;
 }
 
 .loader::after {
+    content: '';
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border-bottom: 4px solid #daff00;
+    border-left: 4px solid transparent;
+}
+.loader-more::after {
     content: '';
     box-sizing: border-box;
     position: absolute;
