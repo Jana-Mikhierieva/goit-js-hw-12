@@ -7,6 +7,7 @@ const gallerySelected = document.querySelector('.js-gallery');
 const loadMoreBtn = document.querySelector('.js-load-more');
 let currentPage = 1;
 let searchInput = '';
+let cardHight = 0;
 const lightbox = new SimpleLightbox('.js-gallery a', {
         captionsData: 'alt',
         captionDelay: 250,
@@ -48,6 +49,8 @@ const handleSubmit = async event => {
         };
         const cardsGalleryList = response.data.hits.map(card => createGalleryCardTemplate(card)).join('');
         gallerySelected.innerHTML = cardsGalleryList;
+        const galleryCard = gallerySelected.querySelector('li');
+        cardHight = galleryCard.getBoundingClientRect().height;
         loadMoreBtn.classList.remove('is-hidden');
         lightbox.refresh();
     } catch (err) {
@@ -67,11 +70,14 @@ const handleSubmit = async event => {
 const onLoadMoreClick = async event => {
     try {
         currentPage++;
-        loaderMore.classList.toggle('is-hidden');
+        loaderMore.classList.remove('is-hidden');        
         const response = await fetchImg(searchInput, currentPage);
-        console.log(response.data);
         const cardsGalleryList = response.data.hits.map(card => createGalleryCardTemplate(card)).join('');
-        gallerySelected.insertAdjacentHTML('beforeend', cardsGalleryList);  
+        gallerySelected.insertAdjacentHTML('beforeend', cardsGalleryList); 
+        scrollBy({
+            top: cardHight * 2,
+            behavior: 'smooth',
+        })
         if (response.data.hits.length === 0) {
             loadMoreBtn.classList.add('is-hidden');
             iziToast.info({
@@ -85,7 +91,7 @@ const onLoadMoreClick = async event => {
     } catch (err) {
         console.error(err);        
     } finally {
-        loaderMore.classList.add('is-hidden');
+        loaderMore.classList.add('is-hidden');        
     }
 };
 form.addEventListener('submit', handleSubmit);

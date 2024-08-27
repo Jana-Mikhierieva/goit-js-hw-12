@@ -2,59 +2,28 @@
 @import "simplelightbox/dist/simple-lightbox.min.css";
 
 .loader {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    display: block;
-    margin-left: auto;
+    display: inline-block;
+    margin-left: 420px;
     margin-right: auto;
-    margin-bottom: 40px;
-    border-top: 4px solid #232556e6;
-    border-right: 4px solid transparent;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
-}
-.loader-more {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 40px;
-    border-top: 4px solid #232556e6;
-    border-right: 4px solid transparent;
-    box-sizing: border-box;
-    animation: rotation 1s linear infinite;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    color: #373535;
+    position: relative;
 }
 
-.is-hidden {
-    display: none;
-}
-
-.loader::after {
+.loader::before {
     content: '';
-    box-sizing: border-box;
     position: absolute;
-    left: 0;
-    top: 0;
-    width: 48px;
-    height: 48px;
+    left: 9px;
+    bottom: 3px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    border-bottom: 4px solid #daff00;
-    border-left: 4px solid transparent;
-}
-.loader-more::after {
-    content: '';
+    border: 5px solid #c5bdbd;
+    border-bottom-color: #ec6a3e;
     box-sizing: border-box;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border-bottom: 4px solid #daff00;
-    border-left: 4px solid transparent;
+    animation: rotation 0.6s linear infinite;
 }
 
 @keyframes rotation {
@@ -66,9 +35,43 @@
         transform: rotate(360deg);
     }
 }
+.loader-more {
+    color: #464444;
+    display: inline-block;
+    margin-left: 520px;
+    position: relative;
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
 
+.loader-more::after {
+    content: '';
+    width: 5px;
+    height: 5px;
+    background: currentColor;
+    position: absolute;
+    bottom: 4px;
+    right: -10px;
+    box-sizing: border-box;
+    animation: animloader 1s linear infinite;
+}
+
+@keyframes animloader {
+    0% {
+        box-shadow: 10px 0 rgba(255, 255, 255, 0), 20px 0 rgba(255, 255, 255, 0);
+    }
+
+    50% {
+        box-shadow: 10px 0 rgb(83, 63, 63), 20px 0 rgba(255, 255, 255, 0);
+    }
+
+    100% {
+        box-shadow: 10px 0 rgb(39, 36, 36), 20px 0 rgb(50, 46, 46);
+    }
+}
 .container {
-    width: 1200px;
+    width: 1128px;
     padding-left: 15px;
     padding-right: 15px;
     margin-left: auto;
@@ -76,8 +79,9 @@
 }
 
 .search-form {
-    width: 600px;
+    width: 371px;
     display: flex;
+    gap: 8px;
     margin: 0 auto;
     margin-bottom: 40px;
 }
@@ -85,11 +89,19 @@
 .search-input {
     font-size: 18px;
     flex-grow: 1;
-    width: 360px;
+    width: 272px;
     height: 40px;
     padding-left: 15px;
-    border: 1px solid #303030;
+    border: 1px solid #808080;
     border-radius: 4px;
+    outline: transparent;
+}
+.search-input:hover {
+    border-color: #000;
+}
+.search-input:active {
+    outline: transparent;
+    border-color: #4e75ff;
 }
 
 .search-btn {
@@ -117,13 +129,13 @@
 }
 
 .gallery-card {
-    width: calc((100% - 60px) / 4);
+    width: calc((100% - 48px) / 3);
     border: 1px solid #303030;
 }
 
 .gallery-img {
     width: 100%;
-    height: 380px;
+    height: 200px;
     object-fit: cover;
 }
 
@@ -147,4 +159,25 @@
 .quantity-descr {
     font-weight: normal;
     color: #303030;
+}
+.load-more {
+    display: block;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    width: 125px;
+    height: 40px;
+    background-color: #4e75ff;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    color: #fff;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 32px;
+    margin-bottom: 5px;
+}
+.is-hidden {
+    display: none;
 }
