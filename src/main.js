@@ -17,7 +17,7 @@ const lightbox = new SimpleLightbox('.js-gallery a', {
 });
 const loader = document.querySelector('.loader');
 const loaderMore = document.querySelector('.loader-more');
-
+let totalLoadedImages = 0;
 const handleSubmit = async event => {
     try {
         event.preventDefault();
@@ -36,7 +36,8 @@ const handleSubmit = async event => {
             return;
         }
         loader.classList.remove('is-hidden');
-        const response = await fetchImg(searchInput, currentPage);        
+        const response = await fetchImg(searchInput, currentPage); 
+        totalLoadedImages += response.data.hits.length;
         if (response.data.hits.length === 0) {
             iziToast.error({
                 title: 'Error',
@@ -72,13 +73,16 @@ const onLoadMoreClick = async event => {
         currentPage++;
         loaderMore.classList.remove('is-hidden');        
         const response = await fetchImg(searchInput, currentPage);
-        const cardsGalleryList = response.data.hits.map(card => createGalleryCardTemplate(card)).join('');
+        totalLoadedImages += response.data.hits.length;     
+        const cardsGalleryList = response.data.hits.map(card => {
+            return createGalleryCardTemplate(card)
+        }).join('');
         gallerySelected.insertAdjacentHTML('beforeend', cardsGalleryList); 
         scrollBy({
             top: cardHight * 2,
             behavior: 'smooth',
         })
-        if (response.data.hits.length === 0) {
+        if (totalLoadedImages >= response.data.totalHits) { 
             loadMoreBtn.classList.add('is-hidden');
             iziToast.info({
             title: 'Hello!',
@@ -89,7 +93,14 @@ const onLoadMoreClick = async event => {
         });
         };
     } catch (err) {
-        console.error(err);        
+        console.error(err); 
+        iziToast.error({
+        title: 'Error',
+        message: 'Oops! Error! Try again later!',
+        position: 'topRight',
+        maxWidth: '400px',
+        backgroundColor: '#daff00',
+        });
     } finally {
         loaderMore.classList.add('is-hidden');        
     }
