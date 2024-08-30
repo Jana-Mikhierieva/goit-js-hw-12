@@ -22,6 +22,7 @@ const handleSubmit = async event => {
     try {
         event.preventDefault();
         gallerySelected.innerHTML = '';
+        totalLoadedImages = 0;
         searchInput = form.elements.user_query.value.trim();
         loadMoreBtn.classList.add('is-hidden');
         currentPage = 1;
@@ -52,7 +53,15 @@ const handleSubmit = async event => {
         gallerySelected.innerHTML = cardsGalleryList;
         const galleryCard = gallerySelected.querySelector('li');
         cardHight = galleryCard.getBoundingClientRect().height;
-        loadMoreBtn.classList.remove('is-hidden');
+        if (totalLoadedImages >= response.data.totalHits) { 
+            iziToast.info({
+            title: 'Hello!',
+            message: 'We are sorry, but you have reached the end of search results!',
+            position: 'topRight',
+            maxWidth: '400px',
+            backgroundColor: '#daff00',
+        });
+        } else loadMoreBtn.classList.remove('is-hidden');
         lightbox.refresh();
     } catch (err) {
         console.error(err);
@@ -73,7 +82,7 @@ const onLoadMoreClick = async event => {
         currentPage++;
         loaderMore.classList.remove('is-hidden');        
         const response = await fetchImg(searchInput, currentPage);
-        totalLoadedImages += response.data.hits.length;     
+        totalLoadedImages += response.data.hits.length;
         const cardsGalleryList = response.data.hits.map(card => {
             return createGalleryCardTemplate(card)
         }).join('');
@@ -82,7 +91,7 @@ const onLoadMoreClick = async event => {
             top: cardHight * 2,
             behavior: 'smooth',
         })
-        if (totalLoadedImages >= response.data.totalHits) { 
+        if (totalLoadedImages >= response.data.totalHits) {
             loadMoreBtn.classList.add('is-hidden');
             iziToast.info({
             title: 'Hello!',
@@ -90,8 +99,9 @@ const onLoadMoreClick = async event => {
             position: 'topRight',
             maxWidth: '400px',
             backgroundColor: '#daff00',
-        });
-        };
+            });            
+        };        
+        lightbox.refresh();
     } catch (err) {
         console.error(err); 
         iziToast.error({
